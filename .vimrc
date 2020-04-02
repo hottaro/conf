@@ -1,4 +1,4 @@
-" hash -vimrc 2013
+" hottaro -vimrc 2013
 " alias vim='mvim -v'
 " echo alias vim='/usr/local/bin/mvim' >> .bash_profile
 " Allow us to use Ctrl-s and Ctrl-q as keybinds
