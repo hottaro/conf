@@ -155,7 +155,7 @@ Plug 'easymotion/vim-easymotion'
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 " 文件搜索 end 
 " 跳转vim-gutentags
-Plug 'ludovicchabant/vim-gutentags'
+" Plug 'ludovicchabant/vim-gutentags'
 " 跳转vim-gutentags end
 " go 插件
 "Plug 'govim/govim'
