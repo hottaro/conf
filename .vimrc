@@ -134,6 +134,11 @@ call plug#begin()
 " 文件树
 Plug 'scrooloose/nerdtree'
 " 文件树 end
+" 可以快速对齐的插件
+Plug 'junegunn/vim-easy-align'
+" 配色方案
+" colorscheme neodark
+Plug 'KeitaNakamura/neodark.vim'
 " 各种语言支持, 自动补全
 " Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " 各种语言支持 end
@@ -160,11 +165,12 @@ Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 " go 插件
 "Plug 'govim/govim'
 Plug 'majutsushi/tagbar'
-"Plugin 'dgryski/vim-godef'
+Plug 'dgryski/vim-godef'
 Plug 'jstemmer/gotags'
 Plug 'roxma/SimpleAutoComplPop'
 Plug 'fatih/vim-go'
-Plug 'nsf/gocode', {'rtp': 'vim/'}
+Plug 'Blackrush/vim-gocode'
+"Plug 'nsf/gocode', {'rtp': 'vim/'}
 " go 插件 end
 "Plug 'storyn26383/vim-vue'
 "Plug 'StanAngeloff/php.vim'
@@ -385,16 +391,27 @@ let g:go_play_open_browser = 0
 let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
 let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
 "}
-" simplecomplpop {
-"let g:sacpEnable = 0
+"'Blackrush/vim-gocode'{
+"imap . <C-x><C-o>
+"}
+" SimpleAutoComplPop {
 " 1. variables are all defined in current scope, use keyword from current
-    " buffer for completion `<C-x><C-n>`
-    " 2. When the '.' is pressed, use smarter omnicomplete `<C-x><C-o>`, this
-    " works well with the vim-go plugin
+" buffer for completion `<C-x><C-n>`
+" 2. When the '.' is pressed, use smarter omnicomplete `<C-x><C-o>`, this
+" works well with the vim-go plugin
 autocmd FileType go call sacp#enableForThisBuffer({ "matches": [
-                \ { '=~': '\.$'            , 'feedkeys': "\<C-x>\<C-o>", "ignoreCompletionMode":1} ,
-                \ ]
-                \ })
+			\ { '=~': '\v[a-zA-Z]{4}$' , 'feedkeys': "\<C-x>\<C-n>"} ,
+			\ { '=~': '\.$'            , 'feedkeys': "\<C-x>\<C-o>", "ignoreCompletionMode":1} ,
+			\ ]
+			\ })
+
+autocmd FileType php,php5,php7 call sacp#enableForThisBuffer({ "matches": [
+				\ { '=~': '\v[a-zA-Z]{4}$', 'feedkeys': "\<C-x>\<C-o>"},
+				\ { '=~': '::$'           , 'feedkeys': "\<C-x>\<C-o>"},
+				\ { '=~': '->$'           , 'feedkeys': "\<C-x>\<C-o>"},
+				\ ]
+				\ })
+"let g:sacpEnable = 0
 " }
 " tagbar {
 let g:tagbar_left = 1
