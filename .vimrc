@@ -159,6 +159,11 @@ Plug 'easymotion/vim-easymotion'
 "Plug 'junegunn/fzf.vim'
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 " 文件搜索 end 
+"
+" 自动括号配对
+Plug 'jiangmiao/auto-pairs'
+" 语法检查 
+Plug 'dense-analysis/ale'
 " 跳转vim-gutentags
 " Plug 'ludovicchabant/vim-gutentags'
 " 跳转vim-gutentags end
