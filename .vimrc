@@ -144,7 +144,7 @@ Plug 'KeitaNakamura/neodark.vim'
 " 各种语言支持 end
 " CocInstall coc-json coc-css coc-html coc-vetur coc-phpls coc-java coc-python  coc-highlight coc-emmet coc-lists coc-xml
 " 左侧面函数列表
-Plug 'majutsushi/tagbar'
+"Plug 'majutsushi/tagbar' LeaderfFunction 替代
 " 左侧面函数列表 end
 " 异步自动补全  https://github.com/Shougo/deoplete.nvim/
 " Plug 'Shougo/deoplete.nvim'
@@ -165,11 +165,10 @@ Plug 'jiangmiao/auto-pairs'
 " 语法检查 
 Plug 'dense-analysis/ale'
 " 跳转vim-gutentags
-" Plug 'ludovicchabant/vim-gutentags'
+Plug 'ludovicchabant/vim-gutentags'
 " 跳转vim-gutentags end
 " go 插件
 "Plug 'govim/govim'
-Plug 'majutsushi/tagbar'
 Plug 'dgryski/vim-godef'
 Plug 'jstemmer/gotags'
 Plug 'roxma/SimpleAutoComplPop'
@@ -236,6 +235,31 @@ let godef_split=2
 "let g:gundo_preview_height = 20
 "let g:gundo_right = 1
 "} -- Gundo end
+"
+" ale.vim {
+let g:ale_linters_explicit = 1
+let g:ale_completion_delay = 500
+let g:ale_echo_delay = 20
+let g:ale_lint_delay = 500
+let g:ale_echo_msg_format = '[%linter%] %code: %%s'
+let g:ale_lint_on_text_changed = 'normal'
+let g:ale_lint_on_insert_leave = 1
+let g:airline#extensions#ale#enabled = 1
+
+let g:ale_c_gcc_options = '-Wall -O2 -std=c99'
+let g:ale_cpp_gcc_options = '-Wall -O2 -std=c++14'
+let g:ale_c_cppcheck_options = ''
+let g:ale_cpp_cppcheck_options = ''
+
+let g:ale_sign_error = "\ue009\ue009"
+hi! clear SpellBad
+hi! clear SpellCap
+hi! clear SpellRare
+hi! SpellBad gui=undercurl guisp=red
+hi! SpellCap gui=undercurl guisp=blue
+hi! SpellRare gui=undercurl guisp=magenta
+
+"} -- ale end
 
 " 文件搜索 fzf.vim
 " [Buffers] Jump to the existing window if possible
@@ -257,11 +281,26 @@ let godef_split=2
 "nnoremap <silent> <Leader>A :Ag<CR>
 " 文件搜索 leaderf
 " <leaderf> find file
-nnoremap <silent> <c-\> :LeaderfFunction!<CR>
+"nmap <silent> <c-\> :LeaderfFunction!<CR>
+noremap <c-p> :LeaderfFunction!<cr>
+noremap <c-\> :LeaderfMru<cr>
+"noremap <m-n> :LeaderfBuffer<cr>
+"noremap <m-m> :LeaderfTag<cr>
+"let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
+
+"let g:Lf_RootMarkers = ['.project', '.root', '.svn', '.git']
+"let g:Lf_WorkingDirectoryMode = 'Ac'
+"let g:Lf_WindowHeight = 0.30
+"let g:Lf_CacheDirectory = expand('~/.vim/cache')
+"let g:Lf_ShowRelativePath = 0
+"let g:Lf_HideHelp = 1
+"let g:Lf_StlColorscheme = 'powerline'
+"let g:Lf_PreviewResult = {'Function':0, 'BufTag':0}
 " 文件搜索 fzf.vim leaderf end
+
 "The-NERD-tree
-let NERDTreeWinPos="right"
-let g:NERDTreeWinSize = 25
+"let NERDTreeWinPos="right"
+let g:NERDTreeWinSize = 30
 "let g:NERDTreeQuitOnOpen = 1
 "} -- NERDTree
 "Taglist{
@@ -296,7 +335,10 @@ let Tlist_Use_Split_Window = 1
 "} -- minibufexpl end
 "ctags vim-gutentags{
 "map <C-F12> :!gotags -R=true  .<CR>
-map <C-F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
+map <C-F12> :!ctags -R --c++-kinds=+p --fields=+iaS  --extras=+q .<CR>
+" gutentags 搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归
+set tags=./.tags;,.tags
+
 " gutentags 搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归
 let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
 
@@ -311,16 +353,21 @@ let g:gutentags_cache_dir = s:vim_tags
 let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
 let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
 let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
+
+" 检测 ~/.cache/tags 不存在就新建
+if !isdirectory(s:vim_tags)
+       silent! call mkdir(s:vim_tags, 'p')
+endif
 "} -- ctags, vim-gutentags, end
 "cscope{
-nmap <C-\>s :cs find s <C-R>=expand("<cword>")<CR><CR>  
-nmap <C-\>g :cs find g <C-R>=expand("<cword>")<CR><CR>  
-nmap <C-\>c :cs find c <C-R>=expand("<cword>")<CR><CR>  
-nmap <C-\>t :cs find t <C-R>=expand("<cword>")<CR><CR>  
-nmap <C-\>e :cs find e <C-R>=expand("<cword>")<CR><CR>  
-nmap <C-\>f :cs find f <C-R>=expand("<cfile>")<CR><CR>  
-nmap <C-\>i :cs find i <C-R>=expand("<cfile>")<CR><CR>
-nmap <C-\>d :cs find d <C-R>=expand("<cword>")<CR><CR>
+"nmap <C-\>s :cs find s <C-R>=expand("<cword>")<CR><CR>  
+"map <C-\>g :cs find g <C-R>=expand("<cword>")<CR><CR>  
+"map <C-\>c :cs find c <C-R>=expand("<cword>")<CR><CR>  
+"map <C-\>t :cs find t <C-R>=expand("<cword>")<CR><CR>  
+"map <C-\>e :cs find e <C-R>=expand("<cword>")<CR><CR>  
+"map <C-\>f :cs find f <C-R>=expand("<cfile>")<CR><CR>  
+"map <C-\>i :cs find i <C-R>=expand("<cfile>")<CR><CR>
+"map <C-\>d :cs find d <C-R>=expand("<cword>")<CR><CR>
 
 "} -- cscope
 "
@@ -418,37 +465,6 @@ autocmd FileType php,php5,php7 call sacp#enableForThisBuffer({ "matches": [
 				\ })
 "let g:sacpEnable = 0
 " }
-" tagbar {
-let g:tagbar_left = 1
-let g:tagbar_width = 35
-let g:tagbar_type_go = {
-    \ 'ctagstype' : 'go',
-    \ 'kinds'     : [
-        \ 'p:package',
-        \ 'i:imports:1',
-        \ 'c:constants',
-        \ 'v:variables',
-        \ 't:types',
-        \ 'n:interfaces',
-        \ 'w:fields',
-        \ 'e:embedded',
-        \ 'm:methods',
-        \ 'r:constructor',
-        \ 'f:functions'
-    \ ],
-    \ 'sro' : '.',
-    \ 'kind2scope' : {
-        \ 't' : 'ctype',
-        \ 'n' : 'ntype'
-    \ },
-    \ 'scope2kind' : {
-        \ 'ctype' : 't',
-        \ 'ntype' : 'n'
-    \ },
-    \ 'ctagsbin'  : 'gotags',
-    \ 'ctagsargs' : '-sort -silent'
-\ }
-" }
 " { -- powerline
 let g:Powerline_symbols = 'fancy'
 set fillchars+=stl:\ ,stlnc:\
@@ -520,6 +536,7 @@ nmap <leader>ra call PullAndRefresh()
 "
 "} -- leader end
 "Ctrl setting{
+" tagbar replace
 "inoremap <c-x> <Delete>
 "Move between windows
 nmap <C-h> <C-w>h
@@ -578,7 +595,7 @@ noremap <F5> <C-O>:q!<cr>
 "Gundo
 nnoremap <F7> :GundoToggle<CR>
 inoremap <F7> <Esc>:GundoToggle<CR>
-map <F8> :TagbarToggle<CR>
+"map <F8> :TagbarToggle<CR>
 "NEREDTree
 nnoremap <F9> :NERDTree<CR>
 nnoremap <C-F9> :NERDTreeClose<CR>
@@ -638,8 +655,5 @@ if &term =~ '^screen' && exists('$TMUX')
 endif
 
 " for tmux vimset clipboard=unnamed
-" auto load tagbar
-autocmd VimEnter * nested :TagbarOpen
-autocmd BufEnter * nested :call tagbar#autoopen(0)
 
 
