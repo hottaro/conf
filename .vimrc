@@ -115,7 +115,7 @@ let g:easycomplete_scheme="sharp"
 "The-NERD-tree {
 "let NERDTreeWinPos="right"
 let g:NERDTreeWinSize = 30
-autocmd VimEnter * NERDTree
+" autocmd VimEnter * NERDTree
 autocmd BufWinEnter * NERDTreeMirror
 "let g:NERDTreeQuitOnOpen = 1
 "} 
