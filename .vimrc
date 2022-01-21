@@ -32,12 +32,22 @@ set smartindent
 
 
 " /////////////////////////////////////////// Base Setting end//////////////////////////////////////// "
+nnoremap <F3> :q!<cr>
+inoremap <F3> <Esc>:q!<cr>
+nnoremap <F4> :w<cr>
+inoremap <F4> <Esc>:w<cr>
+" /////////////////////////////////////////// F1-12 setting /////////////////////////////////////////// "
 
+" /////////////////////////////////////////// F1-12 setting end /////////////////////////////////////// "
+
+" /////////////////////////////////////////// Ctrl setting //////////////////////////////////////////// "
 " /////////////////////////////////////////// Ctrl setting //////////////////////////////////////////// "
 " +++++++++++++++++++++++++++++++++++++++++++ Move setting ++++++++++++++++++++++++++++++++++++++++++++ "
 " move between windows
 nmap <C-h> <C-w>h
 nmap <C-l> <C-w>l
+nmap <C-j> <C-w>j
+nmap <C-k> <C-w>k
 " move in insert mode
 inoremap <c-j> <down>
 inoremap <c-k> <up>
@@ -48,7 +58,6 @@ nmap <C-b> gT
 imap <C-b> <Esc>gT
 nmap <C-n> gt
 " +++++++++++++++++++++++++++++++++++++++++++ Move setting end ++++++++++++++++++++++++++++++++++++++++++++ "
-
 " set copy with c-c
 vnoremap <C-C> "+y
 " set paste mode
@@ -91,6 +100,10 @@ nmap <leader>Nt :tN<cr>
 " 'Yggdroot/LeaderF' {
 nmap <leader>f :LeaderfFunction!<cr>
 " }
+" 'nathanaelkane/vim-indent-guides' {
+" <leader>ig 
+nmap <silent> <Leader>g <Plug>IndentGuidesToggle
+" }
 " /////////////////////////////////////////// Leader ',' setting end /////////////////////////////////// "
 
 
@@ -99,6 +112,7 @@ call plug#begin()
 " file list
 Plug 'easymotion/vim-easymotion'
 Plug 'scrooloose/nerdtree'
+Plug 'nathanaelkane/vim-indent-guides'
 " autocompletion
 Plug 'jayli/vim-easycomplete'
 " search 
@@ -122,6 +136,11 @@ autocmd BufWinEnter * NERDTreeMirror
 " 'Yggdroot/LeaderF' {
 let g:Lf_WorkingDirectoryMode = 'AF'
 let g:Lf_RootMarkers = ['.git', '.svn', '.hg', '.project', '.root']
+let g:Lf_ShowDevIcons = 0
+let g:Lf_WildIgnore = { 
+                \ 'dir': ['img','.svn','.git','.hg','.vscode'],
+            \ 'file': ['run.*','*.png','*.sw?','~$*','*.bak','*.exe','*.o','*.ko','*.so','*.py[co]']
+            \}
 " }
 " /////////////////////////////////////////// Plug setting end ///////////////////////////////////////// "
 
@@ -152,9 +171,9 @@ set nocompatible
 " special search add '\' except ($ . * ^)
 set magic
 " support unicode 
-" set fencs=gb18030,utf8
+" set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
 " disable delete key in normal mode
-"set backspace=indent,eol,start
+set backspace=indent,eol,start
 ""Turn backup off
 set nobackup
 set nowb
