@@ -13,6 +13,11 @@ set cmdheight=1
 " set color
 set t_Co=256                 
 colorscheme desert
+" highlight config files
+au BufEnter,BufRead *conf setf dosini
+au BufEnter,BufRead *toml setf dosini
+au BufEnter,BufRead *ini setf dosini
+au BufEnter,BufRead *yaml setf dosini
 "let g:solarized_termtrans  = 1
 "let g:solarized_termcolors = 256
 "let g:solarized_contrast   = "high"
