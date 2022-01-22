@@ -85,6 +85,10 @@ let mapleader=","
 " cancel hlsearch {
 nnoremap <leader>/ :noh<cr>
 " }
+" set show and hide no, {
+nnoremap <silent> <leader>n :set nu<cr>
+nnoremap <leader>m :set nonu<cr>
+" }
 " for files {
 " write file
 nnoremap <leader>w :w<cr>
