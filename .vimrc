@@ -2,11 +2,8 @@
 "
 "
 " /////////////////////////////////////////// Base Setting /////////////////////////////////////////// "
-" tab display
-set guitablabel=\[%N\]\ %t\ %M 
-" status line
-set statusline=%<%f\ %h%m%r%=%k[%{(&fenc==\"\")?&enc:&fenc}%{(&bomb?\",BOM\":\"\")}]\ %-14.(%l,%c%V%)\ %P
-set laststatus=2
+" tab display only file
+set guitablabel=\ %t\ %M
 " set number                           
 set history=100
 set cmdheight=1
@@ -34,18 +31,25 @@ set ruler
 set smartindent
 " can switch buff without save files
 "set hidden
-
-
+" status line {
+set statusline+=%n\ \|                                                                                     "buffer number
+set statusline+=%Y\ \|                                                                                     " filetype
+set statusline+=%{\"\".(&fenc==\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\"+\":\"\").\"\"}\ \|      " fileencode
+set statusline+=%{&ff}\ \|                                                                                 " fileformat
+set statusline+=%F%m%r%h%w\                                                                                " file path (modify flag)
+set statusline+=%=[asc=%03.3b]\ [hex=%02.2B]                                                               " ASCII and hex code
+set statusline+=\ [%04l,%02v\|%L][%p%%]                                                                    " current position
+set laststatus=2
+" }
 " /////////////////////////////////////////// Base Setting end//////////////////////////////////////// "
+
+" /////////////////////////////////////////// F1-12 setting /////////////////////////////////////////// "
 nnoremap <F3> :q!<cr>
 inoremap <F3> <Esc>:q!<cr>
 nnoremap <F4> :w<cr>
 inoremap <F4> <Esc>:w<cr>
-" /////////////////////////////////////////// F1-12 setting /////////////////////////////////////////// "
-
 " /////////////////////////////////////////// F1-12 setting end /////////////////////////////////////// "
 
-" /////////////////////////////////////////// Ctrl setting //////////////////////////////////////////// "
 " /////////////////////////////////////////// Ctrl setting //////////////////////////////////////////// "
 " +++++++++++++++++++++++++++++++++++++++++++ Move setting ++++++++++++++++++++++++++++++++++++++++++++ "
 " move between windows
@@ -107,7 +111,8 @@ nmap <leader>Nt :tN<cr>
 " nmap <leader>rn <Plug>(coc-rename)
 " nmap <leader>rf <Plug>(coc-refactor)
 " 'Yggdroot/LeaderF' {
-nmap <leader>f :LeaderfFunction!<cr>
+nmap <leader>f :LeaderfFunction<cr>
+nmap <leader>l :LeaderfSelf<cr>
 " }
 " 'nathanaelkane/vim-indent-guides' {
 " <leader>ig 
@@ -118,10 +123,11 @@ nmap <silent> <Leader>g <Plug>IndentGuidesToggle
 
 " /////////////////////////////////////////// Plug start /////////////////////////////////////////////// "
 call plug#begin()
-" file list
 Plug 'easymotion/vim-easymotion'
 Plug 'scrooloose/nerdtree'
 Plug 'nathanaelkane/vim-indent-guides'
+" tab show tabnum and filename only
+Plug 'mkitt/tabline.vim'
 " autocompletion
 Plug 'jayli/vim-easycomplete'
 " search 
@@ -152,8 +158,6 @@ let g:Lf_WildIgnore = {
             \}
 " }
 " /////////////////////////////////////////// Plug setting end ///////////////////////////////////////// "
-
-
 
 " /////////////////////////////////////////// Global setting /////////////////////////////////////////// "
 "tab setting {
