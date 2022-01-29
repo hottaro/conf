@@ -1,4 +1,5 @@
 " hottaro -vimrc 2013 update 2022
+" https://vimawesome.com/0
 "
 "
 " /////////////////////////////////////////// Base Setting /////////////////////////////////////////// "
@@ -106,8 +107,8 @@ nnoremap <leader>x :x<cr>
 "Tab configuration
 map <leader>tn :tabnew
 "for ctag
-nmap <leader>nt :tn<cr>
-nmap <leader>Nt :tN<cr>
+" nmap <leader>nt :tn<cr>
+" nmap <leader>Nt :tN<cr>
 " nmap <leader>rn <Plug>(coc-rename)
 " nmap <leader>rf <Plug>(coc-refactor)
 " 'Yggdroot/LeaderF' {
@@ -117,6 +118,11 @@ nmap <leader>l :LeaderfSelf<cr>
 " 'nathanaelkane/vim-indent-guides' {
 " <leader>ig 
 nmap <silent> <Leader>g <Plug>IndentGuidesToggle
+" }
+" vim-easycomplete {
+" next and previous error
+nnoremap <silent> <Leader>w :EasyCompleteNextDiagnostic<CR>
+nnoremap <silent> <Leader>b :EasyCompletePreviousDiagnostic<CR>
 " }
 " /////////////////////////////////////////// Leader ',' setting end /////////////////////////////////// "
 
@@ -137,7 +143,9 @@ call plug#end()
 
 " /////////////////////////////////////////// Plug setting start /////////////////////////////////////// "
 " vim-easycomplete {
-let g:easycomplete_tab_trigger="<c-p>"
+" let g:easycomplete_tab_trigger="<tab>"
+" let g:easycomplete_diagnostics_enable = 0  " grammar check
+" let g:easycomplete_signature_enable = 0 " code function chcek
 " （dark, light, rider, sharp）
 let g:easycomplete_scheme="sharp" 
 "}
