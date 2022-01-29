@@ -121,7 +121,7 @@ nmap <silent> <Leader>g <Plug>IndentGuidesToggle
 " }
 " vim-easycomplete {
 " next and previous error
-nnoremap <silent> <Leader>w :EasyCompleteNextDiagnostic<CR>
+nnoremap <silent> <Leader>e :EasyCompleteNextDiagnostic<CR>
 nnoremap <silent> <Leader>b :EasyCompletePreviousDiagnostic<CR>
 " }
 " /////////////////////////////////////////// Leader ',' setting end /////////////////////////////////// "
