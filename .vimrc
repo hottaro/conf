@@ -123,6 +123,8 @@ nmap <silent> <Leader>g <Plug>IndentGuidesToggle
 " next and previous error
 nnoremap <silent> <Leader>e :EasyCompleteNextDiagnostic<CR>
 nnoremap <silent> <Leader>b :EasyCompletePreviousDiagnostic<CR>
+nnoremap <silent> <Leader>v :EasyCompleteEnable<CR>
+nnoremap <silent> <Leader>z :EasyCompleteDisable<CR>
 " }
 " /////////////////////////////////////////// Leader ',' setting end /////////////////////////////////// "
 
@@ -145,9 +147,11 @@ call plug#end()
 " vim-easycomplete {
 " let g:easycomplete_tab_trigger="<tab>"
 " let g:easycomplete_diagnostics_enable = 0  " grammar check
-" let g:easycomplete_signature_enable = 0 " code function chcek
+" let g:easycomplete_signature_enable = 0 " code function check
 " （dark, light, rider, sharp）
-let g:easycomplete_scheme="sharp" 
+let g:easycomplete_scheme="dark" 
+let g:easycomplete_lsp_checking = 1
+let g:easycomplete_diagnostics_enable = 0
 "}
 "The-NERD-tree {
 "let NERDTreeWinPos="right"
